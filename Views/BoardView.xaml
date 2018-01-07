@@ -4,22 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChessRPG.Views"
+             xmlns:placeables="clr-namespace:ChessRPG.Placeables"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="900" d:DesignWidth="900">
     <UserControl.DataContext>
         <local:BoardViewModel />
     </UserControl.DataContext>
     <Grid>
 
-        <ItemsControl x:Name="BoardControl" 
-                      ItemsSource="{Binding Pieces}">
+        <!--Draw the board-->
+        <ItemsControl x:Name="BoardControl"
+            ItemsSource="{Binding Squares}">
 
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-
                     <UniformGrid Columns="8" 
-                     Rows="8"
-                     Background="White">
+                                 Rows="8">
                     </UniformGrid>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
@@ -28,7 +28,111 @@
                 <DataTemplate>
                     <Border BorderBrush="Black"
                             BorderThickness="1">
-                        <Label Content="{Binding Name}"></Label>
+                        <Border.Background>
+                            <SolidColorBrush Color="{Binding BackgroundColor}"></SolidColorBrush>
+                        </Border.Background>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!--Draw all highlighted Squares-->
+        <ItemsControl ItemsSource="{Binding HighlightedSquares}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Grid.Column"
+                    Value="{Binding Position.X}" />
+                    <Setter Property="Grid.Row"
+                    Value="{Binding Position.Y}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black"
+                            BorderThickness="1">
+                        <Border.Background>
+                            <SolidColorBrush Color="Blue"></SolidColorBrush>
+                        </Border.Background>
+                    </Border>
+                </DataTemplate>
+                </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+
+        <!--Draw all pieces-->
+        <ItemsControl ItemsSource="{Binding Pieces}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Grid.Column"
+                    Value="{Binding Position.X}" />
+                    <Setter Property="Grid.Row"
+                    Value="{Binding Position.Y}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+
+            <ItemsControl.Resources>
+                <DataTemplate DataType="{x:Type placeables:Piece}">
+                    <Border BorderBrush="Black"
+                                BorderThickness="1"
+                                Background="Transparent">
+                        <Label Content="{Binding Name}"
+                               FontSize="30"
+                               FontWeight="Bold"></Label>
                         <Border.InputBindings>
                             <MouseBinding MouseAction="LeftClick"
                                           Command="{Binding ElementName=BoardControl, Path=DataContext.SquareClickCommand}"
@@ -37,7 +141,11 @@
                         </Border.InputBindings>
                     </Border>
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>
+
+            </ItemsControl.Resources>
         </ItemsControl>
+
+      
+
     </Grid>
 </UserControl>

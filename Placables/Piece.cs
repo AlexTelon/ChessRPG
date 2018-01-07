@@ -1,4 +1,5 @@
 ﻿using ChessRPG.Misc;
+using ChessRPG.Placables;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,12 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using static ChessRPG.Misc.Globals;
 
-namespace ChessRPG.Pieces
+namespace ChessRPG.Placeables
 {
     [DebuggerDisplay("Position: {Position}, Side: {Side}")]
-    class Piece
+    class Piece : Placeable
     {
-        public string Name { get; set; }
+        public string Name { get => Position.ToString(); }
 
         /// <summary>
         /// The position of the Piece
@@ -35,6 +36,14 @@ namespace ChessRPG.Pieces
             Position = position;
             Side = side;
         }
+
+        /// <summary>
+        /// Needed for XAML apparently..
+        /// </summary>
+        //public Piece()
+        //{
+
+        //}
 
         /// <summary>
         /// Set how this piece can move

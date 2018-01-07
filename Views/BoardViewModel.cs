@@ -1,21 +1,60 @@
-﻿using ChessRPG.Pieces;
-using ChessRPG.Misc;
+﻿using ChessRPG.Misc;
+using ChessRPG.Placeables;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ChessRPG.Misc.Globals;
 using System.Windows.Input;
+using ChessRPG.Placables;
+using System.Windows.Data;
+using System.Windows.Media;
+using System.Collections.ObjectModel;
 
 namespace ChessRPG.Views
 {
     class BoardViewModel
     {
         private Board Board = new Board();
+
+        //public IEnumerable<Placeable> AllItems => Squares.Concat(Pieces);
+
+        public CompositeCollection _allItems = new CompositeCollection();
+        /// <summary>
+        /// Contains all the items on the board
+        /// </summary>
+        public CompositeCollection AllItems => _allItems;
+
+        public IEnumerable<Square> Squares { get => Board.Squares; }
         public IReadOnlyList<Piece> Pieces { get => Board.Pieces; }
 
-        public Piece SelectedPiece { get; set; }
+        public ObservableCollection<Square> HighlightedSquares { get; set; } = new ObservableCollection<Square>();
+
+        private Piece _selectedPiece;
+        public Piece SelectedPiece
+        {
+            get => _selectedPiece;
+            set
+            {
+                if (value != _selectedPiece)
+                {
+                    _selectedPiece = value;
+
+                    // Get all the squares that we could go to
+                    HighlightedSquares.Clear();
+                    
+                    var newHighlights = _selectedPiece.PossibleMovement.Select(x => Board.GetSquare(x)).ToList();
+                    foreach (var square in newHighlights)
+                    {
+                        HighlightedSquares.Add(square);
+                    }
+
+                }
+            }
+        }
+
 
         public RelayCommand SquareClickCommand { get; set; }
 
@@ -28,26 +67,64 @@ namespace ChessRPG.Views
         public BoardViewModel()
         {
             // Init the board (for debug)
-            for (int i = 0; i < 64; i++)
+            for (int x = 0; x < 8; x++)
             {
-                var position = new BoardPosition(i % 8, i % 8);
+                for (int y = 0; y < 8; y++)
+                {
+                    if (y > 1 && y < 6) continue;
 
-                var piece = new Piece(position: position, side: Side.White) { Name = "" + i };
+                    var position = new BoardPosition(x, y);
 
-                var movementBehaviour = new MovementBehaviour();
-                movementBehaviour.Board = Board;
-                movementBehaviour.MovementVectors.Add(new Vector(0, 1));
-                movementBehaviour.MovementVectors.Add(new Vector(1, 1));
-                movementBehaviour.MovementVectors.Add(new Vector(1, 0));
+                    var piece = new Piece(position: position, side: Side.White);
 
-                piece.SetMovementBehaviour(movementBehaviour);
+                    var movementBehaviour = new MovementBehaviour();
+                    movementBehaviour.Board = Board;
+                    movementBehaviour.MovementVectors.Add(new Vector(0, 1));
+                    movementBehaviour.MovementVectors.Add(new Vector(1, 1));
+                    movementBehaviour.MovementVectors.Add(new Vector(1, 0));
+                    movementBehaviour.MovementVectors.Add(new Vector(-1, 0));
+                    movementBehaviour.MovementVectors.Add(new Vector(-1, -1));
+                    movementBehaviour.MovementVectors.Add(new Vector(0, -1));
+                    movementBehaviour.MovementVectors.Add(new Vector(1, -1));
+                    movementBehaviour.MovementVectors.Add(new Vector(-1, 1));
 
-                Board.AddPiece(piece);
+                    piece.SetMovementBehaviour(movementBehaviour);
+
+                    Board.AddPiece(piece);
+                }
+            }
+
+            // Create all the squares
+            for (int x = 0; x < 8; x++)
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    var position = new BoardPosition(x, y);
+
+                    var square = new Square();
+                    square.Position = position;
+
+                    if ((x + y) % 2 == 0) square.BackgroundColor = Colors.White;
+                    else square.BackgroundColor = Colors.Brown;
+
+                    Board.Squares.Add(square);
+                }
             }
 
 
             // What happens when clicking on a square
             SquareClickCommand = new RelayCommand(OnSquareClicked);
+
+
+            CollectionContainer squareCC = new CollectionContainer();
+            squareCC.Collection = Squares;
+
+            CollectionContainer pieceCC = new CollectionContainer();
+            pieceCC.Collection = Pieces;
+
+            _allItems.Add(squareCC);
+            _allItems.Add(pieceCC);
+
         }
     }
 }

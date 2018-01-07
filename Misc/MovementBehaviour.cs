@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static ChessRPG.Misc.Globals;
 
-namespace ChessRPG.Pieces
+namespace ChessRPG.Misc
 {
     class MovementBehaviour
     {
@@ -38,16 +38,27 @@ namespace ChessRPG.Pieces
                 while (currentPosition.CanMove(vector) && !blockFound)
                 {
                     currentPosition += vector;
-                    
-                    // if there is a blocking piece then we will not continue past this point
-                    if (!Board.IsEmpty(currentPosition))
-                        blockFound = true;
+                    var currentPiece = Board.GetPiece(currentPosition);
 
-                    // Dont ever take one from the same side
-                    if (!ourSide.IsSameSide(Board.GetPiece(currentPosition).Side))
+                    // if there is a blocking piece then we will not continue past this point
+                    if (currentPiece == null)
                     {
                         possiblePositions.Add(new BoardPosition(currentPosition));
+
+                    } else
+                    {
+                        // We hit a piece
+                        blockFound = true;
+
+                        // We found a piece here, if its not one of ours then we can go here. But we dont ever take one from the same side
+                        if (!ourSide.IsSameSide(currentPiece.Side))
+                        {
+                            possiblePositions.Add(new BoardPosition(currentPosition));
+                        }
                     }
+
+                    
+
                 }
 
             }

@@ -1,4 +1,4 @@
-﻿using ChessRPG.Pieces;
+﻿using ChessRPG.Placeables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace ChessRPG.Misc
         /// </summary>
         public List<Piece> BlackPieces { get; } = new List<Piece>();
 
-
+        public List<Square> Squares { get; internal set; } = new List<Square>();
 
         /// <summary>
         /// Add a piece to the board, if there already is a piece on the same square then remove the current piece
@@ -51,9 +51,11 @@ namespace ChessRPG.Misc
             else WhitePieces.Add(piece);
         }
 
-        public Piece GetPiece(BoardPosition pos) => Pieces.FirstOrDefault(x => x.Position == pos);
+        public Piece GetPiece(BoardPosition pos) => Pieces.FirstOrDefault(p => p.Position == pos);
 
-        public bool IsEmpty(BoardPosition pos) => Pieces.Any(p => p.Position == pos);
+        public Square GetSquare(BoardPosition pos) => Squares.First(s => s.Position == pos);
+
+        public bool IsEmpty(BoardPosition pos) => !Pieces.Any(p => p.Position == pos);
 
 
         public void Remove(Piece piece)

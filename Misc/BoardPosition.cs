@@ -94,6 +94,7 @@ namespace ChessRPG.Misc
         }
 
 
+
         public override string ToString()
         {
             return "(" + X + ", " + Y + ")";
@@ -117,5 +118,14 @@ namespace ChessRPG.Misc
             return position;
         }
 
+        public static bool operator ==(BoardPosition lhs, BoardPosition rhs)
+        {
+            return (lhs.X == rhs.X && lhs.Y == rhs.Y);
+        }
+
+        public static bool operator !=(BoardPosition lhs, BoardPosition rhs)
+        {
+            return (lhs.X != rhs.X || lhs.Y != rhs.Y);
+        }
     }
 }

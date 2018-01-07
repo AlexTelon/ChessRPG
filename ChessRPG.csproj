@@ -54,13 +54,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Placables\Placeable.cs" />
+    <Compile Include="Placables\Square.cs" />
     <Compile Include="Misc\Board.cs" />
     <Compile Include="Misc\BoardPosition.cs" />
     <Compile Include="Misc\Globals.cs" />
     <Compile Include="Misc\RelayCommand.cs" />
     <Compile Include="Misc\Vector.cs" />
-    <Compile Include="Pieces\MovementBehaviour.cs" />
-    <Compile Include="Pieces\Piece.cs" />
+    <Compile Include="Misc\MovementBehaviour.cs" />
+    <Compile Include="Placables\Piece.cs" />
     <Compile Include="Views\BoardView.xaml.cs">
       <DependentUpon>BoardView.xaml</DependentUpon>
     </Compile>
@@ -108,8 +110,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Board\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
