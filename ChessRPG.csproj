@@ -54,11 +54,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Misc\Board.cs" />
+    <Compile Include="Misc\Position.cs" />
+    <Compile Include="Misc\Globals.cs" />
+    <Compile Include="Misc\Vector.cs" />
+    <Compile Include="Pieces\IPiece.cs" />
     <Compile Include="Pieces\Piece.cs" />
-    <Compile Include="Views\Board\BoardView.xaml.cs">
+    <Compile Include="Views\BoardView.xaml.cs">
       <DependentUpon>BoardView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Board\BoardViewModel.cs" />
+    <Compile Include="Views\BoardViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -71,7 +76,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Board\BoardView.xaml">
+    <Page Include="Views\BoardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

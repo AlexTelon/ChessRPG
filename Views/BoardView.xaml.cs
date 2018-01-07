@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ChessRPG.Views.Board
+namespace ChessRPG.Views
 {
     /// <summary>
     /// Interaction logic for BoardView.xaml
