@@ -11,5 +11,13 @@
         {
             return (a == b);
         }
+
+
+        public enum PieceArchetypes
+        {
+            King, Queen, Rook, Bishop, Knight, Pawn
+        }
+
+
     }
 }

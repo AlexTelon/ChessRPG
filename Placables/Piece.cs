@@ -37,13 +37,10 @@ namespace ChessRPG.Placeables
             Side = side;
         }
 
-        /// <summary>
-        /// Needed for XAML apparently..
-        /// </summary>
-        //public Piece()
-        //{
+        public Piece()
+        {
 
-        //}
+        }
 
         /// <summary>
         /// Set how this piece can move

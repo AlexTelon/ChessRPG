@@ -93,7 +93,17 @@ namespace ChessRPG.Misc
             return (this.X == other.X && this.Y == other.Y);
         }
 
+        public override bool Equals(object other)
+        {
+            var o = other as BoardPosition;
+            return (this.X == o.X && this.Y == o.Y);
+        }
 
+        public override int GetHashCode()
+        {
+            // Cantor pairing function
+            return (X + Y) * (X + Y + 1) / 2 + X;
+        }
 
         public override string ToString()
         {

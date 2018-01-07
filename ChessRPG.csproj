@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Placables\Pieces\PieceFactory.cs" />
     <Compile Include="Placables\Placeable.cs" />
     <Compile Include="Placables\Square.cs" />
     <Compile Include="Misc\Board.cs" />

@@ -12,6 +12,7 @@ using ChessRPG.Placables;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Collections.ObjectModel;
+using ChessRPG.Placables.Pieces;
 
 namespace ChessRPG.Views
 {
@@ -75,20 +76,12 @@ namespace ChessRPG.Views
 
                     var position = new BoardPosition(x, y);
 
-                    var piece = new Piece(position: position, side: Side.White);
+                    //var piece = new Piece(position: position, side: Side.White);
 
-                    var movementBehaviour = new MovementBehaviour();
-                    movementBehaviour.Board = Board;
-                    movementBehaviour.MovementVectors.Add(new Vector(0, 1));
-                    movementBehaviour.MovementVectors.Add(new Vector(1, 1));
-                    movementBehaviour.MovementVectors.Add(new Vector(1, 0));
-                    movementBehaviour.MovementVectors.Add(new Vector(-1, 0));
-                    movementBehaviour.MovementVectors.Add(new Vector(-1, -1));
-                    movementBehaviour.MovementVectors.Add(new Vector(0, -1));
-                    movementBehaviour.MovementVectors.Add(new Vector(1, -1));
-                    movementBehaviour.MovementVectors.Add(new Vector(-1, 1));
-
-                    piece.SetMovementBehaviour(movementBehaviour);
+                    var piece = PieceFactory.CreatePiece(Board, PieceArchetypes.Queen);
+                    piece.Position = position;
+                    if (y < 2) piece.Side = Side.White;
+                    else piece.Side = Side.Black;
 
                     Board.AddPiece(piece);
                 }
