@@ -57,6 +57,7 @@
     <Compile Include="Misc\Board.cs" />
     <Compile Include="Misc\BoardPosition.cs" />
     <Compile Include="Misc\Globals.cs" />
+    <Compile Include="Misc\RelayCommand.cs" />
     <Compile Include="Misc\Vector.cs" />
     <Compile Include="Pieces\MovementBehaviour.cs" />
     <Compile Include="Pieces\Piece.cs" />

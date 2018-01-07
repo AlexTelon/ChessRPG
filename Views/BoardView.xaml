@@ -11,7 +11,8 @@
     </UserControl.DataContext>
     <Grid>
 
-        <ItemsControl ItemsSource="{Binding Pieces}">
+        <ItemsControl x:Name="BoardControl" 
+                      ItemsSource="{Binding Pieces}">
 
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -28,6 +29,12 @@
                     <Border BorderBrush="Black"
                             BorderThickness="1">
                         <Label Content="{Binding Name}"></Label>
+                        <Border.InputBindings>
+                            <MouseBinding MouseAction="LeftClick"
+                                          Command="{Binding ElementName=BoardControl, Path=DataContext.SquareClickCommand}"
+                                          CommandParameter="{Binding}">
+                            </MouseBinding>
+                        </Border.InputBindings>
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

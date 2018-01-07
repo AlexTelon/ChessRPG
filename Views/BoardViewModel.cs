@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ChessRPG.Misc.Globals;
+using System.Windows.Input;
 
 namespace ChessRPG.Views
 {
@@ -14,8 +15,19 @@ namespace ChessRPG.Views
         private Board Board = new Board();
         public IReadOnlyList<Piece> Pieces { get => Board.Pieces; }
 
+        public Piece SelectedPiece { get; set; }
+
+        public RelayCommand SquareClickCommand { get; set; }
+
+        private void OnSquareClicked(object obj)
+        {
+            Piece piece = obj as Piece;
+            SelectedPiece = piece;
+        }
+
         public BoardViewModel()
         {
+            // Init the board (for debug)
             for (int i = 0; i < 64; i++)
             {
                 var position = new BoardPosition(i % 8, i % 8);
@@ -32,6 +44,10 @@ namespace ChessRPG.Views
 
                 Board.AddPiece(piece);
             }
+
+
+            // What happens when clicking on a square
+            SquareClickCommand = new RelayCommand(OnSquareClicked);
         }
     }
 }
