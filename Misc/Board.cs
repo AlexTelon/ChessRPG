@@ -35,7 +35,7 @@ namespace ChessRPG.Misc
         public void AddPiece(Piece piece)
         {
             // see if there already is a piece at that position
-            Piece overridenPiece = Pieces.FirstOrDefault(x => x.Position == piece.Position);
+            Piece overridenPiece = GetPiece(piece.Position);
 
             if (overridenPiece != null)
             {
@@ -50,6 +50,11 @@ namespace ChessRPG.Misc
             if (piece.Side == Globals.Side.Black) BlackPieces.Add(piece);
             else WhitePieces.Add(piece);
         }
+
+        public Piece GetPiece(BoardPosition pos) => Pieces.FirstOrDefault(x => x.Position == pos);
+
+        public bool IsEmpty(BoardPosition pos) => Pieces.Any(p => p.Position == pos);
+
 
         public void Remove(Piece piece)
         {

@@ -6,5 +6,10 @@
         {
             White, Black
         }
+
+        public static bool IsSameSide(this Side a, Side b)
+        {
+            return (a == b);
+        }
     }
 }

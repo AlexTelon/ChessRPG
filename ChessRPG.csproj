@@ -55,9 +55,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Misc\Board.cs" />
-    <Compile Include="Misc\Position.cs" />
+    <Compile Include="Misc\BoardPosition.cs" />
     <Compile Include="Misc\Globals.cs" />
     <Compile Include="Misc\Vector.cs" />
+    <Compile Include="Pieces\MovementBehaviour.cs" />
     <Compile Include="Pieces\Piece.cs" />
     <Compile Include="Views\BoardView.xaml.cs">
       <DependentUpon>BoardView.xaml</DependentUpon>
