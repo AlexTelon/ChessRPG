@@ -13,6 +13,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Collections.ObjectModel;
 using ChessRPG.Placables.Pieces;
+using System.Windows;
 
 namespace ChessRPG.Views
 {
@@ -117,7 +118,11 @@ namespace ChessRPG.Views
 
             _allItems.Add(squareCC);
             _allItems.Add(pieceCC);
-
         }
+
+
+     
+
+
     }
 }
