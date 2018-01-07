@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChessRPG.Misc
 {
-    class Vector
+    class Vector : IEquatable<Vector>
     {
         public int X { get; set; }
         public int Y { get; set; }
@@ -17,5 +17,14 @@ namespace ChessRPG.Misc
             Y = y;
         }
 
+        public bool Equals(Vector other)
+        {
+            return (this.X == other.X && this.Y == other.Y);
+        }
+
+        public override string ToString()
+        {
+            return "(" + X + ", " + Y + ")";
+        }
     }
 }

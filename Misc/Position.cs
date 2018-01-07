@@ -51,5 +51,12 @@ namespace ChessRPG.Misc
         {
             return (this.X == other.X && this.Y == other.Y);
         }
+
+
+        public override string ToString()
+        {
+            return "(" + X + ", " + Y + ")";
+        }
+
     }
 }

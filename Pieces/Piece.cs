@@ -1,6 +1,7 @@
 ﻿using ChessRPG.Misc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using static ChessRPG.Misc.Globals;
 
 namespace ChessRPG.Pieces
 {
+    [DebuggerDisplay("Position: {Position}, Side: {Side}")]
     class Piece
     {
         public string Name { get; set; }
