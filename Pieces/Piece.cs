@@ -19,7 +19,8 @@ namespace ChessRPG.Pieces
 
         public Piece(Position position, Side side)
         {
-
+            Position = position;
+            Side = side;
         }
 
     }
