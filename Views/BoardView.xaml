@@ -36,57 +36,6 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <!--Draw all highlighted Squares-->
-        <ItemsControl ItemsSource="{Binding HighlightedSquares}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-
-            <ItemsControl.ItemContainerStyle>
-                <Style>
-                    <Setter Property="Grid.Column"
-                    Value="{Binding Position.X}" />
-                    <Setter Property="Grid.Row"
-                    Value="{Binding Position.Y}" />
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border BorderBrush="Black"
-                            BorderThickness="1">
-                        <Border.Background>
-                            <SolidColorBrush Color="Blue"></SolidColorBrush>
-                        </Border.Background>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-
-
         <!--Draw all pieces-->
         <ItemsControl ItemsSource="{Binding Pieces}">
             <ItemsControl.ItemsPanel>
@@ -176,6 +125,70 @@
             </ItemsControl.ItemTemplate>-->
         </ItemsControl>
 
+        <!--Draw all highlighted Squares-->
+        <ItemsControl ItemsSource="{Binding HighlightedSquares}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Grid.Column"
+                    Value="{Binding Position.X}" />
+                    <Setter Property="Grid.Row"
+                    Value="{Binding Position.Y}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Canvas VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                            <Ellipse Width="40"
+                                 Height="40"
+                                 Fill="Black"
+                                 Opacity="0.4">
+                                <Ellipse.RenderTransform>
+                                    <TranslateTransform X="-20"
+                                                        Y="-20"></TranslateTransform>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+                        </Canvas>
+                    </Grid>
+
+                    <!--<Border BorderBrush="Black"
+                            BorderThickness="1">
+                        <Border.Background>
+                            <SolidColorBrush Color="Blue"></SolidColorBrush>
+                        </Border.Background>
+                    </Border>-->
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
 
 
     </Grid>
