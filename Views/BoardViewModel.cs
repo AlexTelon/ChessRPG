@@ -14,10 +14,11 @@ using System.Windows.Media;
 using System.Collections.ObjectModel;
 using ChessRPG.Placables.Pieces;
 using System.Windows;
+using System.ComponentModel;
 
 namespace ChessRPG.Views
 {
-    class BoardViewModel
+    class BoardViewModel : INotifyPropertyChanged
     {
         private Board Board = new Board();
 
@@ -27,6 +28,15 @@ namespace ChessRPG.Views
         public ObservableCollection<Square> HighlightedSquares { get; set; } = new ObservableCollection<Square>();
 
         private Piece _selectedPiece;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+
         public Piece SelectedPiece
         {
             get => _selectedPiece;
@@ -44,18 +54,48 @@ namespace ChessRPG.Views
                     {
                         HighlightedSquares.Add(square);
                     }
-
                 }
             }
         }
 
 
-        public RelayCommand SquareClickCommand { get; set; }
+        public RelayCommand HighlightedSquareClickCommand { get; set; }
 
-        private void OnSquareClicked(object obj)
+        private void OnHightlightedSquareClick(object obj)
+        {
+            var square = obj as Square;
+            var pos = square.Position;
+
+            // if we clicked on a highlighted square it means it is one which we can move the current piece to 
+            // Sanity Check
+            if (HighlightedSquares.Contains(square))
+            {
+                Board.MovePiece(SelectedPiece, pos);
+                OnPropertyChanged("Pieces");
+            }
+
+            HighlightedSquares.Clear();
+            SelectedPiece = new Piece();
+        }
+
+        /// <summary>
+        /// Can only click on a square (ie move) if a piece is selected.
+        /// Clicking on a square with no piece selected does nothing.
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        private bool CanClickSquare(object arg)
+        {
+            return (SelectedPiece != null);
+        }
+
+        public RelayCommand PieceClickCommand { get; set; }
+
+        private void OnPieceClicked(object obj)
         {
             Piece piece = obj as Piece;
             SelectedPiece = piece;
+
         }
 
         public BoardViewModel()
@@ -106,13 +146,10 @@ namespace ChessRPG.Views
 
 
             // What happens when clicking on a square
-            SquareClickCommand = new RelayCommand(OnSquareClicked);
+            HighlightedSquareClickCommand = new RelayCommand(OnHightlightedSquareClick, CanClickSquare);
+            PieceClickCommand = new RelayCommand(OnPieceClicked);
 
         }
-
-
-
-
 
     }
 }

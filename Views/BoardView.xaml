@@ -81,8 +81,8 @@
 
                             <local:PieceView.InputBindings>
                                 <MouseBinding MouseAction="LeftClick"
-                                          Command="{Binding ElementName=BoardControl, Path=DataContext.SquareClickCommand}"
-                                          CommandParameter="{Binding}">
+                                              Command="{Binding ElementName=BoardControl, Path=DataContext.PieceClickCommand}"
+                                              CommandParameter="{Binding}">
                                 </MouseBinding>
                             </local:PieceView.InputBindings>
                         </local:PieceView>
@@ -164,6 +164,8 @@
             </ItemsControl.ItemContainerStyle>
 
             <ItemsControl.ItemTemplate>
+                
+                <!--A little indicator for where you can place your pieces-->
                 <DataTemplate>
                     <Grid>
                         <Canvas VerticalAlignment="Center"
@@ -177,15 +179,20 @@
                                                         Y="-20"></TranslateTransform>
                                 </Ellipse.RenderTransform>
                             </Ellipse>
+                            
+                            
+                            <!--if a highlighted square is clicked move the piece there-->
+                            <Canvas.InputBindings>
+                                <MouseBinding MouseAction="LeftClick"
+                                              Command="{Binding ElementName=BoardControl, Path=DataContext.HighlightedSquareClickCommand}"
+                                              CommandParameter="{Binding}">
+                                </MouseBinding>
+                            </Canvas.InputBindings>
+                            
                         </Canvas>
                     </Grid>
 
-                    <!--<Border BorderBrush="Black"
-                            BorderThickness="1">
-                        <Border.Background>
-                            <SolidColorBrush Color="Blue"></SolidColorBrush>
-                        </Border.Background>
-                    </Border>-->
+                  
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

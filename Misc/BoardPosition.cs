@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ChessRPG.Misc
 {
-    public class BoardPosition : IEquatable<BoardPosition>
+    public class BoardPosition : IEquatable<BoardPosition>, INotifyPropertyChanged
     {
         private static int WIDTH = 8;
         private static int HEIGHT = 8;
@@ -19,7 +20,11 @@ namespace ChessRPG.Misc
             get => _x;
             set
             {
-                if (WithinWidthOfBoard(value)) _x = value;
+                if (WithinWidthOfBoard(value) && value != _x)
+                {
+                    _x = value;
+                    OnPropertyChanged("Y");
+                }
             }
         }
 
@@ -32,9 +37,23 @@ namespace ChessRPG.Misc
             get => _y;
             set
             {
-                if (WithinHeightOfBoard(value)) _y = value;
+                if (WithinHeightOfBoard(value) && value != _y)
+                {
+                    _y = value;
+                    OnPropertyChanged("Y");
+                }
             }
         }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+
 
         public BoardPosition(int x, int y)
         {
@@ -130,12 +149,12 @@ namespace ChessRPG.Misc
 
         public static bool operator ==(BoardPosition lhs, BoardPosition rhs)
         {
-            return (lhs.X == rhs.X && lhs.Y == rhs.Y);
+            return (lhs?.X == rhs?.X && lhs?.Y == rhs?.Y);
         }
 
         public static bool operator !=(BoardPosition lhs, BoardPosition rhs)
         {
-            return (lhs.X != rhs.X || lhs.Y != rhs.Y);
+            return (lhs?.X != rhs?.X || lhs?.Y != rhs?.Y);
         }
     }
 }

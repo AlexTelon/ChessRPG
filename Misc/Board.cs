@@ -1,16 +1,24 @@
 ﻿using ChessRPG.Placeables;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ChessRPG.Misc
 {
-    public class Board
+    public class Board : INotifyPropertyChanged
     {
 
         private List<Piece> _pieces = new List<Piece>();
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
         /// <summary>
         /// All pieces on the board
         /// </summary>
@@ -63,6 +71,10 @@ namespace ChessRPG.Misc
             _pieces.Remove(piece);
             WhitePieces.Remove(piece);
             BlackPieces.Remove(piece);
+
+            OnPropertyChanged("Pieces");
+            OnPropertyChanged("WhitePieces");
+            OnPropertyChanged("BlackPieces");
         }
 
         public Board()
@@ -70,5 +82,19 @@ namespace ChessRPG.Misc
             Pieces = _pieces.AsReadOnly();
         }
 
+        internal void MovePiece(Piece pieceToMove, BoardPosition pos)
+        {
+            var piece = Pieces.FirstOrDefault(p => p.Position == pos);
+
+            if (piece != null)
+            {
+                // There is a piece, we take it making sure that a piece does not take one of the same side is the pieces responsibility
+                Remove(piece);
+            }
+
+            // Now the square is empty (if it was not already, so move the piece there)
+            pieceToMove.Position = pos;
+
+        }
     }
 }

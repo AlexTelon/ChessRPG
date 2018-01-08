@@ -2,6 +2,7 @@
 using ChessRPG.Placables;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ using static ChessRPG.Misc.Globals;
 namespace ChessRPG.Placeables
 {
     [DebuggerDisplay("Position: {Position}, Side: {Side}")]
-    public class Piece : Placeable
+    public class Piece : Placeable, INotifyPropertyChanged
     {
         public string Name { get => Position.ToString(); }
 
@@ -21,19 +22,50 @@ namespace ChessRPG.Placeables
         public string ImagePath
         {
             get => "../../Sprites/" + Side + _localImagePath + ".png";
-            set => _localImagePath = value;
+            set
+            {
+                if (value != _localImagePath)
+                {
+                    _localImagePath = value;
+                    OnPropertyChanged("ImagePath");
+                }
+            }
         }
 
+        private BoardPosition _position;
         /// <summary>
         /// The position of the Piece
         /// </summary>
-        public BoardPosition Position { get; set; }
+        public BoardPosition Position
+        {
+            get => _position;
+            set
+            {
+                if (value != _position)
+                {
+                    _position = value;
+                    OnPropertyChanged("Position");
+                }
+            }
+        }
 
+        private Side _side;
         /// <summary>
         /// Which side the piece is on
         /// </summary>
-        public Side Side { get; set; }
+        public Side Side
+        {
+            get => _side;
+            set
+            {
+                if (value != _side)
+                {
+                    _side = value;
+                    OnPropertyChanged("Side");
+                }
+            }
 
+        }
         private MovementBehaviour _movementBehaviour = new MovementBehaviour();
         /// <summary>
         /// Returns the possible positions the piece could move
@@ -45,6 +77,14 @@ namespace ChessRPG.Placeables
             Position = position;
             Side = side;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
 
         public Piece()
         {
