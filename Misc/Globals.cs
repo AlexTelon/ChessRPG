@@ -1,6 +1,6 @@
 ﻿namespace ChessRPG.Misc
 {
-    static class Globals
+    public static class Globals
     {
         public enum Side
         {

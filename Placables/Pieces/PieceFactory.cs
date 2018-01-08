@@ -19,15 +19,16 @@ namespace ChessRPG.Placables.Pieces
         /// <returns></returns>
         public static Piece CreatePiece(Board board, PieceArchetypes type)
         {
+            var piece = new Piece();
+            piece.ImagePath = type.ToString();
+
+            var movement = new MovementBehaviour();
+            movement.Board = board;
+
+            // Set the movementbehaviour of the piece
             switch (type)
             {
                 case PieceArchetypes.King:
-                    break;
-                case PieceArchetypes.Queen:
-                    var queen = new Piece();
-                    var movement = new MovementBehaviour();
-                    movement.Board = board;
-
                     for (int x = -1; x <= 1; x++)
                     {
                         for (int y = -1; y <= 1; y++)
@@ -38,21 +39,76 @@ namespace ChessRPG.Placables.Pieces
                             movement.MovementVectors.Add(new Vector(x, y));
                         }
                     }
-                    queen.SetMovementBehaviour(movement);
-                    return queen;
+
+                    movement.Steps = 1;
+                    break;
+                case PieceArchetypes.Queen:
+                    for (int x = -1; x <= 1; x++)
+                    {
+                        for (int y = -1; y <= 1; y++)
+                        {
+                            // cannot skip moving
+                            if (x == 0 && y == 0) continue;
+
+                            movement.MovementVectors.Add(new Vector(x, y));
+                        }
+                    }
+                    movement.Steps = 9;
+
+                    break;
                 case PieceArchetypes.Rook:
+                    movement.MovementVectors.Add(new Vector(1, 0));
+                    movement.MovementVectors.Add(new Vector(0, 1));
+                    movement.MovementVectors.Add(new Vector(-1, 0));
+                    movement.MovementVectors.Add(new Vector(0, -1));
+
+                    movement.Steps = 9;
+
                     break;
                 case PieceArchetypes.Bishop:
+                    // first diagonal
+                    movement.MovementVectors.Add(new Vector(1, 1));
+                    movement.MovementVectors.Add(new Vector(-1, -1));
+
+                    // second diagonal
+                    movement.MovementVectors.Add(new Vector(-1, 1));
+                    movement.MovementVectors.Add(new Vector(1, -1));
+
+                    movement.Steps = 9;
                     break;
                 case PieceArchetypes.Knight:
+                    movement.MovementVectors.Add(new Vector(2, 1));
+                    movement.MovementVectors.Add(new Vector(2, -1));
+
+                    movement.MovementVectors.Add(new Vector(-2, 1));
+                    movement.MovementVectors.Add(new Vector(-2, -1));
+
+
+                    movement.MovementVectors.Add(new Vector(-1, 2));
+                    movement.MovementVectors.Add(new Vector(1, 2));
+
+                    movement.MovementVectors.Add(new Vector(-1, -2));
+                    movement.MovementVectors.Add(new Vector(1, -2));
+
+                    movement.Steps = 1;
                     break;
                 case PieceArchetypes.Pawn:
+
+                    // special child
+                    movement.MovementVectors.Add(new Vector(1, 0));
+                    movement.MovementVectors.Add(new Vector(0, 1));
+
+                    movement.Steps = 1;
+
                     break;
                 default:
                     break;
 
             }
-            return new Piece();
+
+            piece.SetMovementBehaviour(movement);
+
+            return piece;
         }
     }
 }

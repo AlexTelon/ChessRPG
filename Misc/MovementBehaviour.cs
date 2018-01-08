@@ -8,7 +8,7 @@ using static ChessRPG.Misc.Globals;
 
 namespace ChessRPG.Misc
 {
-    class MovementBehaviour
+    public class MovementBehaviour
     {
         public List<Vector> MovementVectors { get; set; } = new List<Vector>();
 
@@ -29,16 +29,23 @@ namespace ChessRPG.Misc
             var possiblePositions = new List<BoardPosition>();
             Side ourSide = Board.GetPiece(position).Side;
 
+
             foreach (var vector in MovementVectors)
             {
                 var currentPosition = new BoardPosition(position);
                 bool blockFound = false;
+                var stepsLeft = Steps;
+
 
                 // only add empty places, if enemy piece is found add it and then stop.
                 while (currentPosition.CanMove(vector) && !blockFound)
                 {
+                    // make sure we dont take too many steps
+                    if (stepsLeft <= 0) break;
+
                     currentPosition += vector;
                     var currentPiece = Board.GetPiece(currentPosition);
+
 
                     // if there is a blocking piece then we will not continue past this point
                     if (currentPiece == null)
@@ -56,9 +63,7 @@ namespace ChessRPG.Misc
                             possiblePositions.Add(new BoardPosition(currentPosition));
                         }
                     }
-
-                    
-
+                    stepsLeft--;
                 }
 
             }

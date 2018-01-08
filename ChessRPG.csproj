@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -68,6 +69,10 @@
       <DependentUpon>BoardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BoardViewModel.cs" />
+    <Compile Include="Views\PieceView\PieceView.xaml.cs">
+      <DependentUpon>PieceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PieceView\PieceViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -81,6 +86,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\BoardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PieceView\PieceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -100,7 +109,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -111,6 +120,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Sprites\blackBishop.png" />
+    <Resource Include="Sprites\blackKing.png" />
+    <Resource Include="Sprites\blackKnight.png" />
+    <Resource Include="Sprites\blackPawn.png" />
+    <Resource Include="Sprites\blackQueen.png" />
+    <Resource Include="Sprites\blackRook.png" />
+    <Resource Include="Sprites\whiteBishop.png" />
+    <Resource Include="Sprites\whiteKing.png" />
+    <Resource Include="Sprites\whiteKnight.png" />
+    <Resource Include="Sprites\whitePawn.png" />
+    <Resource Include="Sprites\whiteQueen.png" />
+    <Resource Include="Sprites\whiteRook.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

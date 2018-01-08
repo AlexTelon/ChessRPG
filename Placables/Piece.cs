@@ -13,9 +13,16 @@ using static ChessRPG.Misc.Globals;
 namespace ChessRPG.Placeables
 {
     [DebuggerDisplay("Position: {Position}, Side: {Side}")]
-    class Piece : Placeable
+    public class Piece : Placeable
     {
         public string Name { get => Position.ToString(); }
+
+        private string _localImagePath = "Pawn";
+        public string ImagePath
+        {
+            get => "../../Sprites/" + Side + _localImagePath + ".png";
+            set => _localImagePath = value;
+        }
 
         /// <summary>
         /// The position of the Piece

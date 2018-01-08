@@ -21,14 +21,6 @@ namespace ChessRPG.Views
     {
         private Board Board = new Board();
 
-        //public IEnumerable<Placeable> AllItems => Squares.Concat(Pieces);
-
-        public CompositeCollection _allItems = new CompositeCollection();
-        /// <summary>
-        /// Contains all the items on the board
-        /// </summary>
-        public CompositeCollection AllItems => _allItems;
-
         public IEnumerable<Square> Squares { get => Board.Squares; }
         public IReadOnlyList<Piece> Pieces { get => Board.Pieces; }
 
@@ -46,7 +38,7 @@ namespace ChessRPG.Views
 
                     // Get all the squares that we could go to
                     HighlightedSquares.Clear();
-                    
+
                     var newHighlights = _selectedPiece.PossibleMovement.Select(x => Board.GetSquare(x)).ToList();
                     foreach (var square in newHighlights)
                     {
@@ -79,10 +71,17 @@ namespace ChessRPG.Views
 
                     //var piece = new Piece(position: position, side: Side.White);
 
-                    var piece = PieceFactory.CreatePiece(Board, PieceArchetypes.Queen);
+                    var piece = PieceFactory.CreatePiece(Board, (PieceArchetypes) ((x + y) % 6));
                     piece.Position = position;
-                    if (y < 2) piece.Side = Side.White;
-                    else piece.Side = Side.Black;
+
+                    if (y < 2)
+                    {
+                        piece.Side = Side.White;
+                    }
+                    else
+                    {
+                        piece.Side = Side.Black;
+                    }
 
                     Board.AddPiece(piece);
                 }
@@ -109,19 +108,10 @@ namespace ChessRPG.Views
             // What happens when clicking on a square
             SquareClickCommand = new RelayCommand(OnSquareClicked);
 
-
-            CollectionContainer squareCC = new CollectionContainer();
-            squareCC.Collection = Squares;
-
-            CollectionContainer pieceCC = new CollectionContainer();
-            pieceCC.Collection = Pieces;
-
-            _allItems.Add(squareCC);
-            _allItems.Add(pieceCC);
         }
 
 
-     
+
 
 
     }

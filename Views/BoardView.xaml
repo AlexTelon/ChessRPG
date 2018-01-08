@@ -125,9 +125,31 @@
                 </Style>
             </ItemsControl.ItemContainerStyle>
 
-            <ItemsControl.Resources>
-                <DataTemplate DataType="{x:Type placeables:Piece}">
-                        <Border BorderBrush="Black"
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <local:PieceView Piece="{Binding}">
+
+                            <local:PieceView.InputBindings>
+                                <MouseBinding MouseAction="LeftClick"
+                                          Command="{Binding ElementName=BoardControl, Path=DataContext.SquareClickCommand}"
+                                          CommandParameter="{Binding}">
+                                </MouseBinding>
+                            </local:PieceView.InputBindings>
+                        </local:PieceView>
+                        <!--<Label Content="{Binding Name}"/>-->
+                    </WrapPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+            <!--<ItemsControl.ItemTemplate>
+                -->
+            <!--DataType="{x:Type placeables:Piece}"-->
+            <!--
+                <DataTemplate>
+                    <local:PieceView Piece="{Binding }"></local:PieceView>
+                    -->
+            <!--<Border BorderBrush="Black"
                                 BorderThickness="1"
                                 Background="Transparent">
                             <Label Content="{Binding Name}"
@@ -139,16 +161,19 @@
                                           CommandParameter="{Binding}">
                                 </MouseBinding>
                             </Border.InputBindings>
-                        </Border>
+                        </Border>-->
+            <!--
                 </DataTemplate>
 
-                <!--<Style TargetType="Button">
+                -->
+            <!--<Style TargetType="Button">
                     <EventSetter Event="PreviewMouseMove" Handler="Button_PreviewMouseMove" />
                     <EventSetter Event="Drop" Handler="Button_Drop" />
                     <Setter Property="AllowDrop" Value="True" />
                 </Style>-->
+            <!--
 
-            </ItemsControl.Resources>
+            </ItemsControl.ItemTemplate>-->
         </ItemsControl>
 
 

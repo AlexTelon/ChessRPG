@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChessRPG.Misc
 {
-    class Vector : IEquatable<Vector>
+    public class Vector : IEquatable<Vector>
     {
         public int X { get; set; }
         public int Y { get; set; }

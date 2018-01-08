@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChessRPG.Misc
 {
-    class BoardPosition : IEquatable<BoardPosition>
+    public class BoardPosition : IEquatable<BoardPosition>
     {
         private static int WIDTH = 8;
         private static int HEIGHT = 8;

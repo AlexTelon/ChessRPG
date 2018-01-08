@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ChessRPG.Misc
 {
-    class Board
+    public class Board
     {
 
         private List<Piece> _pieces = new List<Piece>();

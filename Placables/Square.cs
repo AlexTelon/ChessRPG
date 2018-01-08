@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace ChessRPG.Placeables
 {
-    class Square : Placeable
+    public class Square : Placeable
     {
         public Color BackgroundColor { get; set; } = Colors.Gray;
 
